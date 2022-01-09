@@ -23,14 +23,14 @@ public class Address implements Serializable {
     @Column(name = "address_id", nullable = false)
     private Long id;
 
-    @Column(name = "adress")
+    @Column(name = "address")
     private String address;
 
     @Column(name = "district")
     private String district;
 
     @Column(name = "postal_code")
-    private Long postalCode;
+    private String postalCode;
 
     @Column(name = "phone")
     private String phoneNumber;
@@ -44,7 +44,7 @@ public class Address implements Serializable {
                 "id=" + id +
                 ", address='" + address + '\'' +
                 ", district='" + district + '\'' +
-                ", postalCode=" + postalCode +
+//                ", postalCode=" + postalCode +
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", lastUpdate=" + lastUpdate +
                 '}';

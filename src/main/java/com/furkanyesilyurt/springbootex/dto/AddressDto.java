@@ -7,11 +7,11 @@ import java.util.Date;
 @Data
 public class AddressDto {
 
-    private final Long id;
-    private final String address;
-    private final String district;
-    private final Long postalCode;
-    private final String phoneNumber;
-    private final Date lastUpdate;
+    private Long id;
+    private String address;
+    private String district;
+    private String postalCode;
+    private String phoneNumber;
+    private Date lastUpdate;
 
 }
