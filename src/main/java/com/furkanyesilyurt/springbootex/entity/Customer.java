@@ -1,5 +1,7 @@
 package com.furkanyesilyurt.springbootex.entity;
 
+import com.fasterxml.jackson.annotation.JsonFilter;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,7 +17,10 @@ import java.util.Date;
 @AllArgsConstructor
 @Entity
 @Table(name = "customer")
-public class Customer implements Serializable {
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler",""})
+//, "addressId"
+@JsonFilter("CustomerFilter")
+public class Customer {
 
     @Id
     @SequenceGenerator(name = "generator", sequenceName = "CUSTOMER_ID_SEQ")
@@ -23,9 +28,8 @@ public class Customer implements Serializable {
     @Column(name = "customer_id", nullable = false)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "store_id", foreignKey = @ForeignKey(name = "customer_store_id_fkey"))
-    private Store storeId;
+    @Column(name = "store_id")
+    private Long storeId;
 
     @Column(name = "first_name")
     private String firstName;
@@ -36,17 +40,18 @@ public class Customer implements Serializable {
     @Column(name = "email")
     private String email;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "address_id", foreignKey = @ForeignKey(name = "customer_address_id_fkey"))
-    private Address addressId;
+    @Column(name = "address_id")
+    private Long addressId;
 
     @Column(name = "activebool")
     private Boolean isActive;
 
     @Column(name = "create_date")
+    @Temporal(TemporalType.TIMESTAMP)
     private Date createDate;
 
     @Column(name = "last_update")
+    @Temporal(TemporalType.TIMESTAMP)
     private Date lastUpdate;
 
     @Column(name = "active")

@@ -1,7 +1,5 @@
-package com.furkanyesilyurt.springbootex.dto;
+package com.furkanyesilyurt.springbootex.dto.Customer;
 
-import com.furkanyesilyurt.springbootex.entity.Address;
-import com.furkanyesilyurt.springbootex.entity.Store;
 import lombok.Data;
 
 import java.util.Date;
@@ -10,11 +8,11 @@ import java.util.Date;
 public class CustomerDto {
 
     private final Long id;
-    private final Store storeId;
+    private final Long storeId;
     private final String firstName;
     private final String lastName;
     private final String email;
-    private final Address addressId;
+    private final Long addressId;
     private final Boolean isActive;
     private final Date createDate;
     private final Date lastUpdate;
