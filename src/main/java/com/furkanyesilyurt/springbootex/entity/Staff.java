@@ -1,5 +1,7 @@
 package com.furkanyesilyurt.springbootex.entity;
 
+import com.fasterxml.jackson.annotation.JsonFilter;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,6 +17,8 @@ import java.util.Date;
 @AllArgsConstructor
 @Entity
 @Table(name = "staff")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler","address"})
+@JsonFilter("StaffFilter")
 public class Staff implements Serializable {
 
     @Id
@@ -29,16 +33,15 @@ public class Staff implements Serializable {
     @Column(name = "last_name")
     private String lastName;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "address_id", foreignKey = @ForeignKey(name = "staff_address_id_fkey"))
-    private Address addressId;
+    private Address address;
 
     @Column(name = "email")
     private String email;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "store_id", foreignKey = @ForeignKey(name = "staff_store_id_fkey"))
-    private Store storeId;
+    @Column(name = "store_id")
+    private Long storeId;
 
     @Column(name = "username")
     private String userName;
@@ -51,16 +54,6 @@ public class Staff implements Serializable {
 
     @Override
     public String toString() {
-        return "Staff{" +
-                "id=" + id +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", addressId=" + addressId +
-                ", email='" + email + '\'' +
-                ", storeId=" + storeId +
-                ", userName='" + userName + '\'' +
-                ", password='" + password + '\'' +
-                ", lastUpdate=" + lastUpdate +
-                '}';
+        return id == null ? "" : id.toString();
     }
 }

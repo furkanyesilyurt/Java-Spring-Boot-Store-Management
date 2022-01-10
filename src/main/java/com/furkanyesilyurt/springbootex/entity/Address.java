@@ -40,14 +40,7 @@ public class Address implements Serializable {
 
     @Override
     public String toString() {
-        return "Address{" +
-                "id=" + id +
-                ", address='" + address + '\'' +
-                ", district='" + district + '\'' +
-//                ", postalCode=" + postalCode +
-                ", phoneNumber='" + phoneNumber + '\'' +
-                ", lastUpdate=" + lastUpdate +
-                '}';
+        return id == null ? "" : id.toString();
     }
 
 }
