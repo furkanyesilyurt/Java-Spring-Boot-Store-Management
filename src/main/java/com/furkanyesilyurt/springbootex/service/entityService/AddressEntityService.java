@@ -5,6 +5,8 @@ import com.furkanyesilyurt.springbootex.dao.IAddressDao;
 import com.furkanyesilyurt.springbootex.dto.Adress.AddressDto;
 import com.furkanyesilyurt.springbootex.dto.Adress.AddressRegisterDto;
 import com.furkanyesilyurt.springbootex.entity.Address;
+import com.furkanyesilyurt.springbootex.exception.AddressNotFoundException;
+import com.furkanyesilyurt.springbootex.exception.AddressNotFoundWithPostalCodeException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -46,11 +48,19 @@ public class AddressEntityService {
     }
 
     public void deleteById(Long id){
+        Optional<Address> optionalAddress = addressDao.findById(id);
+        if(!optionalAddress.isPresent()){
+            throw new AddressNotFoundException("Bu id'ye sahip adres bulunamadi: " + id);
+        }
         addressDao.deleteById(id);
     }
 
     @Transactional
     public void deleteByPostalCode(String postalCode){
+        Address address = addressDao.findByPostalCode(postalCode);
+        if(address == null){
+            throw new AddressNotFoundWithPostalCodeException("Bu posta koduna sahip adres bulunamadi: " + postalCode);
+        }
         addressDao.deleteByPostalCode(postalCode);
     }
 

@@ -5,6 +5,7 @@ import com.furkanyesilyurt.springbootex.dao.ICustomerDao;
 import com.furkanyesilyurt.springbootex.dto.Customer.CustomerDto;
 import com.furkanyesilyurt.springbootex.dto.Customer.CustomerRegisterDto;
 import com.furkanyesilyurt.springbootex.entity.Customer;
+import com.furkanyesilyurt.springbootex.exception.CustomerNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -38,6 +39,10 @@ public class CustomerEntityService {
     }
 
     public void deleteById(Long id){
+        Optional<Customer> customer = customerDao.findById(id);
+        if (!customer.isPresent()){
+            throw new CustomerNotFoundException("Bu id'ye sahip kullanıcı yok:" + id);
+        }
         customerDao.deleteById(id);
     }
 }
